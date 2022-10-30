@@ -888,16 +888,36 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys()) {
+		for (notetype in noteTypeMap.keys())
+		{
 			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if(Assets.exists(luaToLoad)) {
+			if(FileSystem.exists(luaToLoad))
+			{
 				luaArray.push(new FunkinLua(luaToLoad));
 			}
+			else
+			{
+				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
+				if(FileSystem.exists(luaToLoad))
+				{
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
+			}
 		}
-		for (event in eventPushedMap.keys()) {
+		for (event in eventPushedMap.keys())
+		{
 			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if(Assets.exists(luaToLoad)) {
+			if(FileSystem.exists(luaToLoad))
+			{
 				luaArray.push(new FunkinLua(luaToLoad));
+			}
+			else
+			{
+				luaToLoad = SUtil.getPath() + Paths.getPreloadPath('custom_events/' + event + '.lua');
+				if(FileSystem.exists(luaToLoad))
+				{
+					luaArray.push(new FunkinLua(luaToLoad));
+				}
 			}
 		}
 		#end

@@ -31,6 +31,8 @@ class Main extends Sprite
 	{
 		super();
 
+		SUtil.uncaughtErrorHandler();
+		
 		if (stage != null)
 		{
 			init();
@@ -65,9 +67,7 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !debug
-		initialState = TitleState;
-		#end
+		SUtil.check();
 
 		Paths.getModFolders();
 		ClientPrefs.startControls();
